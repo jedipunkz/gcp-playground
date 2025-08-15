@@ -1,0 +1,20 @@
+graph TB
+    subgraph "Primary Region: asia-northeast1"
+        Primary[Primary Instance<br/>Write Operations]
+        
+        subgraph "Read Replicas"
+            Replica1[Read Replica 1<br/>Zone A]
+            Replica2[Read Replica 2<br/>Zone B]
+        end
+    end
+    
+    WriteApp[Write Application] --> Primary
+    ReadApp1[Read Application 1] --> Replica1
+    ReadApp2[Read Application 2] --> Replica2
+    
+    Primary -.->|Async Replication| Replica1
+    Primary -.->|Async Replication| Replica2
+    
+    style Primary fill:#4285f4,color:#fff
+    style Replica1 fill:#34a853,color:#fff
+    style Replica2 fill:#34a853,color:#fff

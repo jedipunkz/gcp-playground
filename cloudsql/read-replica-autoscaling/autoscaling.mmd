@@ -1,0 +1,78 @@
+graph TB
+    subgraph "VPC: cloudsql-vpc"
+        subgraph "Cloud SQL Instances"
+            Primary[Primary Instance<br/>Regional HA<br/>db-n1-standard-2]
+            Replica1[Read Replica 1<br/>db-n1-standard-1]
+            Replica2[Read Replica 2<br/>db-n1-standard-1]
+            ReplicaN[Dynamic Replicas<br/>Auto-created]
+        end
+        
+        subgraph "Applications"
+            WriteApp[Write Applications]
+            ReadApp[Read Applications]
+        end
+    end
+    
+    subgraph "Autoscaling Infrastructure"
+        subgraph "Cloud Monitoring"
+            CPUMetric[CPU Utilization<br/>Threshold: 70%/30%]
+            ConnMetric[Connection Count<br/>Threshold: 80]
+            LagMetric[Replication Lag<br/>Threshold: 10s]
+        end
+        
+        subgraph "Cloud Functions"
+            AutoscaleFunc[Autoscaling Function<br/>Python 3.9]
+        end
+        
+        subgraph "Scheduling & Alerts"
+            Scheduler[Cloud Scheduler<br/>Every 5 minutes]
+            PubSub[Pub/Sub Topic<br/>autoscaling-trigger]
+            AlertPolicy[Alert Policies<br/>High CPU/Connections]
+        end
+    end
+    
+    subgraph "Cloud KMS"
+        KMS[Encryption Keys]
+    end
+    
+    subgraph "IAM"
+        AutoscaleSA[Autoscaling SA<br/>cloudsql.admin<br/>monitoring.viewer]
+        AppSA[Application SA<br/>cloudsql.client]
+    end
+    
+    WriteApp --> Primary
+    ReadApp --> Replica1
+    ReadApp --> Replica2
+    ReadApp --> ReplicaN
+    
+    Primary -.->|Async Replication| Replica1
+    Primary -.->|Async Replication| Replica2
+    Primary -.->|Async Replication| ReplicaN
+    
+    Primary -.->|Encrypted with| KMS
+    Replica1 -.->|Encrypted with| KMS
+    Replica2 -.->|Encrypted with| KMS
+    
+    CPUMetric --> AutoscaleFunc
+    ConnMetric --> AutoscaleFunc
+    LagMetric --> AutoscaleFunc
+    
+    Scheduler --> PubSub
+    PubSub --> AutoscaleFunc
+    AlertPolicy --> PubSub
+    
+    AutoscaleFunc -.->|Creates/Deletes| ReplicaN
+    AutoscaleFunc -.->|Uses| AutoscaleSA
+    
+    WriteApp -.->|Authenticates via| AppSA
+    ReadApp -.->|Authenticates via| AppSA
+    
+    style Primary fill:#4285f4,color:#fff
+    style Replica1 fill:#34a853,color:#fff
+    style Replica2 fill:#34a853,color:#fff
+    style ReplicaN fill:#fbbc04,color:#000
+    style AutoscaleFunc fill:#ea4335,color:#fff
+    style KMS fill:#ea4335,color:#fff
+    style CPUMetric fill:#9aa0a6,color:#fff
+    style ConnMetric fill:#9aa0a6,color:#fff
+    style LagMetric fill:#9aa0a6,color:#fff

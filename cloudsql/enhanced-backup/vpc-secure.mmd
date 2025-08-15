@@ -1,0 +1,49 @@
+graph TB
+    subgraph "Project: cloudsql-project"
+        subgraph "VPC: cloudsql-vpc (10.0.0.0/16)"
+            subgraph "Subnet: cloudsql-subnet (10.0.0.0/24)"
+                App[Application Servers<br/>Cloud Run/GKE]
+                Proxy[Cloud SQL Proxy]
+            end
+            
+            subgraph "Private Service Connect"
+                PSC[Private Service Connection<br/>servicenetworking.googleapis.com]
+                PrivateIP[Reserved IP Range<br/>10.0.16.0/16]
+            end
+        end
+        
+        subgraph "Cloud KMS"
+            KMS[Encryption Key<br/>cloudsql-key]
+        end
+        
+        subgraph "Cloud SQL (Private IP)"
+            Primary[Primary Instance<br/>Regional HA<br/>CMEK Encrypted]
+            Replica[Read Replica<br/>CMEK Encrypted]
+        end
+        
+        subgraph "Cloud IAM"
+            SA[Service Account<br/>cloudsql-app]
+            Roles[IAM Roles<br/>cloudsql.client<br/>cloudsql.instanceUser]
+        end
+    end
+    
+    App --> Proxy
+    Proxy -.->|Private IP Only| Primary
+    Proxy -.->|Private IP Only| Replica
+    
+    Primary -.->|Encrypted with| KMS
+    Replica -.->|Encrypted with| KMS
+    
+    SA --> Roles
+    App -.->|Authenticates via| SA
+    
+    Primary -.->|VPC Peering| PSC
+    Replica -.->|VPC Peering| PSC
+    PSC --> PrivateIP
+    
+    style App fill:#4285f4,color:#fff
+    style Primary fill:#34a853,color:#fff
+    style Replica fill:#34a853,color:#fff
+    style KMS fill:#ea4335,color:#fff
+    style SA fill:#fbbc04,color:#000
+    style PSC fill:#9aa0a6,color:#fff

@@ -1,0 +1,47 @@
+graph TB
+    subgraph "VPC: cloudsql-vpc"
+        subgraph "Private Subnet: 10.0.0.0/24"
+            App[Application<br/>GKE/Cloud Run]
+            Proxy[Cloud SQL Proxy]
+        end
+        
+        subgraph "Private Service Connect"
+            PSC[Service Networking<br/>10.0.16.0/16]
+        end
+    end
+    
+    subgraph "Region: asia-northeast1 (Private IP Only)"
+        subgraph "Zone A: asia-northeast1-a"
+            Primary[Primary Instance<br/>db-n1-standard-2<br/>CMEK Encrypted]
+            PrimaryDisk[Regional PD SSD<br/>100GB + CMEK]
+            Primary --> PrimaryDisk
+        end
+        
+        subgraph "Zone B: asia-northeast1-b"
+            Standby[Standby Instance<br/>db-n1-standard-2<br/>CMEK Encrypted]
+            StandbyDisk[Regional PD SSD<br/>Replica + CMEK]
+            Standby --> StandbyDisk
+        end
+    end
+    
+    subgraph "Cloud KMS"
+        KMS[Encryption Key<br/>cloudsql-key]
+    end
+    
+    App --> Proxy
+    Proxy -.->|SSL Only| VIP[Private IP Address]
+    VIP --> Primary
+    Primary -.->|VPC Peering| PSC
+    
+    PrimaryDisk -.->|Synchronous Replication| StandbyDisk
+    Primary -.->|Heartbeat| Standby
+    
+    Primary -.->|Encrypted with| KMS
+    Standby -.->|Encrypted with| KMS
+    
+    style App fill:#4285f4,color:#fff
+    style Primary fill:#34a853,color:#fff
+    style Standby fill:#34a853,color:#fff
+    style VIP fill:#ea4335,color:#fff
+    style KMS fill:#ea4335,color:#fff
+    style PSC fill:#9aa0a6,color:#fff

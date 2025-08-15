@@ -1,0 +1,97 @@
+graph TB
+    subgraph "Application Layer"
+        WriteApp[Write Applications<br/>INSERT/UPDATE/DELETE]
+        ReadApp[Read Applications<br/>SELECT]
+    end
+    
+    subgraph "Load Balancer Layer"
+        WriteLB[Write Load Balancer<br/>Internal LB<br/>IP: 10.0.x.x:6432]
+        ReadLB[Read Load Balancer<br/>Internal LB<br/>IP: 10.0.y.y:6432]
+    end
+    
+    subgraph "Connection Pooling Layer"
+        subgraph "PgBouncer Instance Group"
+            PgBouncer1[PgBouncer Instance 1<br/>e2-medium<br/>Port: 6432]
+            PgBouncer2[PgBouncer Instance 2<br/>e2-medium<br/>Port: 6432]
+        end
+        
+        subgraph "Health Check"
+            HealthCheck[TCP Health Check<br/>Port: 6432]
+        end
+    end
+    
+    subgraph "VPC: cloudsql-vpc (10.0.0.0/24)"
+        subgraph "Cloud SQL Instances"
+            Primary[Primary Instance<br/>Regional HA<br/>max_connections: 1000]
+            Replica1[Read Replica 1<br/>max_connections: 500]
+            Replica2[Read Replica 2<br/>max_connections: 500]
+            Replica3[Read Replica 3<br/>max_connections: 500]
+        end
+        
+        subgraph "Connection Pool Configuration"
+            PoolConfig[Pool Configuration<br/>Mode: transaction<br/>Default Pool Size: 20<br/>Max Client Conn: 1000]
+        end
+    end
+    
+    subgraph "Service Accounts & IAM"
+        PgBouncerSA[PgBouncer SA<br/>cloudsql.client]
+        AppSA[Application SA<br/>cloudsql.client]
+    end
+    
+    subgraph "Monitoring & Security"
+        Firewall[Firewall Rules<br/>Port: 6432<br/>Source: VPC CIDR]
+        KMS[Cloud KMS<br/>Encryption Keys]
+        Monitoring[Cloud Monitoring<br/>Connection Metrics]
+    end
+    
+    WriteApp --> WriteLB
+    ReadApp --> ReadLB
+    
+    WriteLB --> PgBouncer1
+    WriteLB --> PgBouncer2
+    ReadLB --> PgBouncer1
+    ReadLB --> PgBouncer2
+    
+    PgBouncer1 -.->|Write Pool| Primary
+    PgBouncer2 -.->|Write Pool| Primary
+    
+    PgBouncer1 -.->|Read Pool Round-Robin| Replica1
+    PgBouncer1 -.->|Read Pool Round-Robin| Replica2
+    PgBouncer1 -.->|Read Pool Round-Robin| Replica3
+    
+    PgBouncer2 -.->|Read Pool Round-Robin| Replica1
+    PgBouncer2 -.->|Read Pool Round-Robin| Replica2
+    PgBouncer2 -.->|Read Pool Round-Robin| Replica3
+    
+    Primary -.->|Async Replication| Replica1
+    Primary -.->|Async Replication| Replica2
+    Primary -.->|Async Replication| Replica3
+    
+    HealthCheck -.->|Monitors| PgBouncer1
+    HealthCheck -.->|Monitors| PgBouncer2
+    
+    PgBouncer1 -.->|Uses| PgBouncerSA
+    PgBouncer2 -.->|Uses| PgBouncerSA
+    WriteApp -.->|Authenticates via| AppSA
+    ReadApp -.->|Authenticates via| AppSA
+    
+    Primary -.->|Encrypted with| KMS
+    Replica1 -.->|Encrypted with| KMS
+    Replica2 -.->|Encrypted with| KMS
+    Replica3 -.->|Encrypted with| KMS
+    
+    Monitoring -.->|Tracks| PgBouncer1
+    Monitoring -.->|Tracks| PgBouncer2
+    Firewall -.->|Protects| PgBouncer1
+    Firewall -.->|Protects| PgBouncer2
+    
+    style Primary fill:#4285f4,color:#fff
+    style Replica1 fill:#34a853,color:#fff
+    style Replica2 fill:#34a853,color:#fff
+    style Replica3 fill:#34a853,color:#fff
+    style PgBouncer1 fill:#fbbc04,color:#000
+    style PgBouncer2 fill:#fbbc04,color:#000
+    style WriteLB fill:#ea4335,color:#fff
+    style ReadLB fill:#ea4335,color:#fff
+    style KMS fill:#ea4335,color:#fff
+    style PoolConfig fill:#9aa0a6,color:#fff

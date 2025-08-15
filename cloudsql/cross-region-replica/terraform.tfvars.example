@@ -1,0 +1,16 @@
+# Required variables
+project_id  = "your-gcp-project-id"
+db_password = "your-secure-password-here"
+
+# Optional variables (uncomment to override defaults)
+# primary_region = "asia-northeast1"
+# dr_region = "us-central1"
+# environment = "dev"
+# db_name = "myapp"
+# db_user = "myapp"
+# primary_instance_tier = "db-n1-standard-2"
+# replica_instance_tier = "db-n1-standard-2"
+# disk_size = 100
+# backup_start_time = "23:00"
+# maintenance_day = 7
+# maintenance_hour = 4

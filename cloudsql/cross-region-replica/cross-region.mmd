@@ -1,0 +1,20 @@
+graph TB
+    subgraph "Primary Region: asia-northeast1"
+        Primary[Primary Instance<br/>HA Configuration]
+        LocalReplica[Local Read Replica]
+    end
+    
+    subgraph "DR Region: us-central1"
+        CrossRegionReplica[Cross-Region Replica<br/>Disaster Recovery]
+    end
+    
+    LocalApp[Local Applications] --> Primary
+    LocalRead[Local Read Apps] --> LocalReplica
+    GlobalApp[Global Applications] --> CrossRegionReplica
+    
+    Primary -.->|Async Replication| LocalReplica
+    Primary -.->|Cross-Region Async| CrossRegionReplica
+    
+    style Primary fill:#4285f4,color:#fff
+    style LocalReplica fill:#34a853,color:#fff
+    style CrossRegionReplica fill:#fbbc04,color:#000

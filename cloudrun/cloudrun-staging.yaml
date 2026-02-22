@@ -1,0 +1,21 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: myapp-staging   # Must match var.service_name + "-staging"
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "3"
+    spec:
+      serviceAccountName: myapp-run   # Must match google_service_account.cloudrun account_id
+      containers:
+        - image: myapp                # Replaced by Cloud Deploy using --images flag
+          env:
+            - name: ENVIRONMENT
+              value: staging
+          resources:
+            limits:
+              cpu: "1"
+              memory: 512Mi

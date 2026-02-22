@@ -1,0 +1,19 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: myapp
+
+# Cloud Deploy uses these profiles to select the correct Cloud Run manifest.
+profiles:
+  - name: staging
+    manifests:
+      rawYaml:
+        - cloudrun-staging.yaml
+
+  - name: prod
+    manifests:
+      rawYaml:
+        - cloudrun-prod.yaml
+
+deploy:
+  cloudrun: {}

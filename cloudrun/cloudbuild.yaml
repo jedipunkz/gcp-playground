@@ -1,0 +1,45 @@
+steps:
+  # Build the Docker image and tag with both commit SHA and latest
+  - name: "gcr.io/cloud-builders/docker"
+    id: build
+    args:
+      - build
+      - "-t"
+      - "${_REPO_URL}/${_SERVICE_NAME}:$COMMIT_SHA"
+      - "-t"
+      - "${_REPO_URL}/${_SERVICE_NAME}:latest"
+      - "."
+
+  # Push both tags to Artifact Registry
+  - name: "gcr.io/cloud-builders/docker"
+    id: push
+    waitFor: [build]
+    args:
+      - push
+      - "--all-tags"
+      - "${_REPO_URL}/${_SERVICE_NAME}"
+
+  # Create a Cloud Deploy release — triggers rollout to staging automatically.
+  # Promotion to prod requires manual approval in Cloud Deploy console.
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
+    id: release
+    waitFor: [push]
+    entrypoint: gcloud
+    args:
+      - deploy
+      - releases
+      - create
+      - "release-$SHORT_SHA"
+      - "--delivery-pipeline=${_PIPELINE_NAME}"
+      - "--region=${_REGION}"
+      - "--images=${_SERVICE_NAME}=${_REPO_URL}/${_SERVICE_NAME}:$COMMIT_SHA"
+      - "--skaffold-file=skaffold.yaml"
+
+substitutions:
+  _REGION: asia-northeast1
+  _REPO_URL: ""       # overridden by Cloud Build trigger substitutions
+  _SERVICE_NAME: ""   # overridden by Cloud Build trigger substitutions
+  _PIPELINE_NAME: ""  # overridden by Cloud Build trigger substitutions
+
+options:
+  logging: CLOUD_LOGGING_ONLY

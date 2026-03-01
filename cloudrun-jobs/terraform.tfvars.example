@@ -1,0 +1,15 @@
+project_id = "your-project-id"
+region     = "asia-northeast1"
+job_name   = "myjob"
+
+# Pattern 1: Scheduled Batch ETL
+batch_schedule          = "0 2 * * *" # 02:00 daily
+batch_schedule_timezone = "Asia/Tokyo"
+
+# Pattern 2: Parallel Fan-out
+parallel_task_count  = 10
+parallel_parallelism = 5
+
+# Resource sizing (shared)
+cpu_limit    = "1"
+memory_limit = "512Mi"

@@ -8,7 +8,7 @@ steps:
       - "${_REPO_URL}/${_SERVICE_NAME}:$COMMIT_SHA"
       - "-t"
       - "${_REPO_URL}/${_SERVICE_NAME}:latest"
-      - "."
+      - "cloudrun/app"
 
   # Push both tags to Artifact Registry
   - name: "gcr.io/cloud-builders/docker"

@@ -5,7 +5,7 @@ project_id   = "your-gcp-project-id"
 region       = "asia-northeast1"
 service_name = "myapp"
 environment  = "prod"
-domain_name  = "app.example.com"
+domain_name  = "app.gcp-playground.example.com"
 
 # Cloud Run scaling
 min_instances = 1
@@ -16,8 +16,8 @@ memory_limit  = "512Mi"
 # GitHub repository for Cloud Build trigger
 # Connect the repo in GCP Console before applying:
 #   Cloud Build → Triggers → Connect repository
-github_owner  = "your-github-org"
-github_repo   = "your-repo-name"
+github_owner  = "jedipunkz"
+github_repo   = "gcp-playground"
 github_branch = "main"
 
 # Cloud Armor rate limiting

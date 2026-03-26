@@ -24,6 +24,7 @@ variable "environment" {
 variable "domain_name" {
   description = "Custom domain name for the HTTPS load balancer (e.g. app.example.com)"
   type        = string
+  default     = "app.gcp-playground.example.com"
 }
 
 variable "min_instances" {
@@ -53,11 +54,13 @@ variable "memory_limit" {
 variable "github_owner" {
   description = "GitHub repository owner (user or org)"
   type        = string
+  default     = "jedipunkz"
 }
 
 variable "github_repo" {
   description = "GitHub repository name"
   type        = string
+  default     = "gcp-playground"
 }
 
 variable "github_branch" {

@@ -12,8 +12,7 @@ resource "google_cloud_run_v2_service" "app" {
   ingress  = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
 
   template {
-    service_account   = google_service_account.cloudrun.email
-    startup_cpu_boost = true
+    service_account = google_service_account.cloudrun.email
 
     scaling {
       min_instance_count = var.min_instances
@@ -79,8 +78,7 @@ resource "google_cloud_run_v2_service" "staging" {
   ingress  = "INGRESS_TRAFFIC_ALL"
 
   template {
-    service_account   = google_service_account.cloudrun.email
-    startup_cpu_boost = true
+    service_account = google_service_account.cloudrun.email
 
     scaling {
       min_instance_count = 0

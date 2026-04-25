@@ -37,7 +37,8 @@ resource "google_cloud_run_v2_service" "app" {
           cpu    = var.cpu_limit
           memory = var.memory_limit
         }
-        cpu_idle = true
+        cpu_idle          = true
+        startup_cpu_boost = true
       }
 
       env {
@@ -102,7 +103,8 @@ resource "google_cloud_run_v2_service" "staging" {
           cpu    = var.cpu_limit
           memory = var.memory_limit
         }
-        cpu_idle = true
+        cpu_idle          = true
+        startup_cpu_boost = true
       }
 
       env {

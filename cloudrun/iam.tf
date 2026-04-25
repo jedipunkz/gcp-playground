@@ -17,13 +17,13 @@ resource "google_cloud_run_v2_service_iam_member" "prod_invoker" {
   member   = "allUsers"
 }
 
-# Allow authenticated callers to reach the staging service
+# Allow authenticated callers to reach the staging service (Google account required)
 resource "google_cloud_run_v2_service_iam_member" "staging_invoker" {
   project  = var.project_id
   location = var.region
   name     = google_cloud_run_v2_service.staging.name
   role     = "roles/run.invoker"
-  member   = "allUsers"
+  member   = "allAuthenticatedUsers"
 }
 
 # ---------------------------------------------------------------------------

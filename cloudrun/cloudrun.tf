@@ -12,16 +12,21 @@ resource "google_cloud_run_v2_service" "app" {
   ingress  = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
 
   template {
-    service_account = google_service_account.cloudrun.email
+    service_account   = google_service_account.cloudrun.email
+    startup_cpu_boost = true
 
     scaling {
       min_instance_count = var.min_instances
       max_instance_count = var.max_instances
     }
 
+    # Direct VPC Egress: lower latency, no Serverless Connector compute cost
     vpc_access {
-      connector = google_vpc_access_connector.connector.id
-      egress    = "PRIVATE_RANGES_ONLY"
+      network_interfaces {
+        network    = google_compute_network.vpc.id
+        subnetwork = google_compute_subnetwork.subnet.id
+      }
+      egress = "PRIVATE_RANGES_ONLY"
     }
 
     containers {
@@ -40,6 +45,24 @@ resource "google_cloud_run_v2_service" "app" {
         name  = "ENVIRONMENT"
         value = var.environment
       }
+
+      startup_probe {
+        http_get {
+          path = "/healthz"
+        }
+        initial_delay_seconds = 0
+        period_seconds        = 5
+        failure_threshold     = 3
+        timeout_seconds       = 3
+      }
+
+      liveness_probe {
+        http_get {
+          path = "/healthz"
+        }
+        period_seconds  = 30
+        timeout_seconds = 5
+      }
     }
   }
 
@@ -47,8 +70,6 @@ resource "google_cloud_run_v2_service" "app" {
     # Cloud Deploy manages the container image; prevent Terraform from reverting it
     ignore_changes = [template[0].containers[0].image]
   }
-
-  depends_on = [google_vpc_access_connector.connector]
 }
 
 # Staging Cloud Run service (no LB; direct Cloud Run URL for pre-prod validation)
@@ -58,16 +79,21 @@ resource "google_cloud_run_v2_service" "staging" {
   ingress  = "INGRESS_TRAFFIC_ALL"
 
   template {
-    service_account = google_service_account.cloudrun.email
+    service_account   = google_service_account.cloudrun.email
+    startup_cpu_boost = true
 
     scaling {
       min_instance_count = 0
       max_instance_count = 3
     }
 
+    # Direct VPC Egress: lower latency, no Serverless Connector compute cost
     vpc_access {
-      connector = google_vpc_access_connector.connector.id
-      egress    = "PRIVATE_RANGES_ONLY"
+      network_interfaces {
+        network    = google_compute_network.vpc.id
+        subnetwork = google_compute_subnetwork.subnet.id
+      }
+      egress = "PRIVATE_RANGES_ONLY"
     }
 
     containers {
@@ -85,12 +111,28 @@ resource "google_cloud_run_v2_service" "staging" {
         name  = "ENVIRONMENT"
         value = "staging"
       }
+
+      startup_probe {
+        http_get {
+          path = "/healthz"
+        }
+        initial_delay_seconds = 0
+        period_seconds        = 5
+        failure_threshold     = 3
+        timeout_seconds       = 3
+      }
+
+      liveness_probe {
+        http_get {
+          path = "/healthz"
+        }
+        period_seconds  = 30
+        timeout_seconds = 5
+      }
     }
   }
 
   lifecycle {
     ignore_changes = [template[0].containers[0].image]
   }
-
-  depends_on = [google_vpc_access_connector.connector]
 }

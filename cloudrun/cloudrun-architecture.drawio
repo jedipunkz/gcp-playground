@@ -1,0 +1,384 @@
+<mxfile host="app.diagrams.net" modified="2026-02-23T00:01:33.993Z" agent="draw.io" version="24.0.0" etag="cloudrun-architecture" type="device">
+  <diagram name="Cloudrun Architecture" id="cloudrun-architecture">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Cloudrun Directory Structure &amp; GCP Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="500" y="20" width="600" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Directory Structure Section -->
+        <mxCell id="dir-section" value="Directory Structure" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="360" height="620" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="dir-cloudrun" value="cloudrun/" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="20" y="40" width="320" height="560" as="geometry" />
+        </mxCell>
+        
+        <!-- Infrastructure Files -->
+        <mxCell id="infra-label" value="Infrastructure (Terraform)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="70" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-provider" value="├── provider.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="95" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-versions" value="├── versions.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="115" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-variables" value="├── variables.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="135" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-outputs" value="├── outputs.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="155" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-tfvars" value="├── terraform.tfvars.example" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="175" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Resource Files -->
+        <mxCell id="resource-label" value="GCP Resources" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="210" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-cloudrun" value="├── cloudrun.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#0066CC;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="235" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-loadbalancer" value="├── loadbalancer.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#0066CC;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="255" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-cloudarmor" value="├── cloudarmor.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#0066CC;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="275" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-network" value="├── network.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#0066CC;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="295" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-artifact" value="├── artifact_registry.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#0066CC;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="315" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-iam" value="├── iam.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#0066CC;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="335" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- CI/CD Files -->
+        <mxCell id="cicd-label" value="CI/CD" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="370" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-cicd" value="├── cicd.tf" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#CC0000;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="395" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-cloudbuild" value="├── cloudbuild.yaml" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#CC0000;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="415" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-skaffold" value="├── skaffold.yaml" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#CC0000;fontStyle=1" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="435" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Deployment Configs -->
+        <mxCell id="deploy-label" value="Deployment Configs" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="470" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-prod-yaml" value="├── cloudrun-prod.yaml" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#009900" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="495" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="file-staging-yaml" value="└── cloudrun-staging.yaml" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontColor=#009900" vertex="1" parent="dir-section">
+          <mxGeometry x="40" y="515" width="280" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- GCP Architecture Section -->
+        <mxCell id="gcp-section" value="GCP Architecture" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="440" y="80" width="720" height="620" as="geometry" />
+        </mxCell>
+        
+        <!-- External Traffic -->
+        <mxCell id="internet" value="Internet" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="gcp-section">
+          <mxGeometry x="290" y="40" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Load Balancer Layer -->
+        <mxCell id="lb-layer" value="Load Balancer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;fontStyle=1" vertex="1" parent="gcp-section">
+          <mxGeometry x="40" y="150" width="640" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="global-ip" value="Global IP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="gcp-section">
+          <mxGeometry x="60" y="180" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="ssl-cert" value="SSL Cert" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="gcp-section">
+          <mxGeometry x="180" y="180" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="https-proxy" value="HTTPS Proxy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="gcp-section">
+          <mxGeometry x="300" y="180" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="url-map" value="URL Map" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="gcp-section">
+          <mxGeometry x="420" y="180" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="backend" value="Backend Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="gcp-section">
+          <mxGeometry x="540" y="180" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Cloud Armor -->
+        <mxCell id="cloudarmor" value="Cloud Armor&#xa;• WAF Rules&#xa;• Rate Limiting" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="gcp-section">
+          <mxGeometry x="60" y="230" width="200" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- NEG -->
+        <mxCell id="neg" value="Serverless NEG" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="gcp-section">
+          <mxGeometry x="540" y="230" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Cloud Run Layer -->
+        <mxCell id="cloudrun-layer" value="Cloud Run Services" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1" vertex="1" parent="gcp-section">
+          <mxGeometry x="40" y="300" width="640" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="cloudrun-prod" value="Production&#xa;Cloud Run Service&#xa;(Load Balancer ingress)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b5e7a0;strokeColor=#82b366;" vertex="1" parent="gcp-section">
+          <mxGeometry x="60" y="330" width="280" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="cloudrun-staging" value="Staging&#xa;Cloud Run Service&#xa;(Public ingress)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b5e7a0;strokeColor=#82b366;" vertex="1" parent="gcp-section">
+          <mxGeometry x="380" y="330" width="280" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Network Layer -->
+        <mxCell id="network-layer" value="Networking" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;fontStyle=1" vertex="1" parent="gcp-section">
+          <mxGeometry x="40" y="450" width="300" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="vpc" value="VPC Network" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d4c5de;strokeColor=#9673a6;" vertex="1" parent="gcp-section">
+          <mxGeometry x="60" y="480" width="120" height="35" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="vpc-connector" value="VPC Serverless&#xa;Connector" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d4c5de;strokeColor=#9673a6;" vertex="1" parent="gcp-section">
+          <mxGeometry x="200" y="480" width="120" height="35" as="geometry" />
+        </mxCell>
+        
+        <!-- Artifact Registry -->
+        <mxCell id="artifact-registry" value="Artifact Registry&#xa;(Docker Images)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="gcp-section">
+          <mxGeometry x="380" y="450" width="280" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrows - Internet to LB -->
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="gcp-section" source="internet" target="lb-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="340" y="250" as="sourcePoint" />
+            <mxPoint x="390" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Arrow - LB to Cloud Run -->
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="gcp-section" source="lb-layer" target="cloudrun-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="340" y="350" as="sourcePoint" />
+            <mxPoint x="390" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Arrow - Cloud Run to Network -->
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;dashed=1;" edge="1" parent="gcp-section" source="cloudrun-layer" target="network-layer">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="340" y="450" as="sourcePoint" />
+            <mxPoint x="390" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- CI/CD Pipeline Section -->
+        <mxCell id="cicd-section" value="CI/CD Pipeline" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="740" width="1120" height="280" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="github" value="GitHub&#xa;Repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="cicd-section">
+          <mxGeometry x="40" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="cloudbuild-trigger" value="Cloud Build&#xa;Trigger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#b85450;" vertex="1" parent="cicd-section">
+          <mxGeometry x="200" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="cloudbuild-build" value="Cloud Build&#xa;• Build Docker Image&#xa;• Push to AR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#b85450;" vertex="1" parent="cicd-section">
+          <mxGeometry x="360" y="40" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="clouddeploy-release" value="Cloud Deploy&#xa;Create Release" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#b85450;" vertex="1" parent="cicd-section">
+          <mxGeometry x="540" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="deploy-staging" value="Deploy to&#xa;Staging" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="cicd-section">
+          <mxGeometry x="700" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="manual-approval" value="Manual&#xa;Approval" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="cicd-section">
+          <mxGeometry x="860" y="40" width="100" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="deploy-prod" value="Deploy to&#xa;Production" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="cicd-section">
+          <mxGeometry x="700" y="100" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- CI/CD Arrows -->
+        <mxCell id="cicd-arrow1" value="git push" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="cicd-section" source="github" target="cloudbuild-trigger">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="180" as="sourcePoint" />
+            <mxPoint x="450" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="cicd-arrow2" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="cicd-section" source="cloudbuild-trigger" target="cloudbuild-build">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="180" as="sourcePoint" />
+            <mxPoint x="450" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="cicd-arrow3" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="cicd-section" source="cloudbuild-build" target="clouddeploy-release">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="180" as="sourcePoint" />
+            <mxPoint x="450" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="cicd-arrow4" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="cicd-section" source="clouddeploy-release" target="deploy-staging">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="180" as="sourcePoint" />
+            <mxPoint x="450" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="cicd-arrow5" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="cicd-section" source="deploy-staging" target="manual-approval">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="180" as="sourcePoint" />
+            <mxPoint x="450" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="cicd-arrow6" value="approved" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="cicd-section" source="manual-approval" target="deploy-prod">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="180" as="sourcePoint" />
+            <mxPoint x="450" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Service Accounts -->
+        <mxCell id="sa-section" value="Service Accounts &amp; IAM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;fontStyle=1" vertex="1" parent="cicd-section">
+          <mxGeometry x="40" y="160" width="1040" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sa-cloudrun" value="Cloud Run SA&#xa;(Runtime)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffeaa0;strokeColor=#d6b656;" vertex="1" parent="cicd-section">
+          <mxGeometry x="60" y="195" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sa-cloudbuild" value="Cloud Build SA&#xa;(Build &amp; Push)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffeaa0;strokeColor=#d6b656;" vertex="1" parent="cicd-section">
+          <mxGeometry x="240" y="195" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sa-clouddeploy" value="Cloud Deploy SA&#xa;(Deploy)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffeaa0;strokeColor=#d6b656;" vertex="1" parent="cicd-section">
+          <mxGeometry x="420" y="195" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="iam-note" value="IAM Roles:&#xa;• run.invoker (allUsers for prod/staging)&#xa;• cloudbuild.builds.builder&#xa;• artifactregistry.writer&#xa;• clouddeploy.releaser&#xa;• run.developer" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontFamily=Courier New;fontSize=10" vertex="1" parent="cicd-section">
+          <mxGeometry x="610" y="190" width="420" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="Legend" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1200" y="80" width="360" height="280" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-infra" value="Infrastructure Files (Blue)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#0066CC;fontStyle=1" vertex="1" parent="legend">
+          <mxGeometry x="20" y="40" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-infra-desc" value="Define GCP resources: Cloud Run, Load Balancer,&#xa;Network, Cloud Armor, Artifact Registry, IAM" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="legend">
+          <mxGeometry x="20" y="65" width="320" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-cicd" value="CI/CD Files (Red)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#CC0000;fontStyle=1" vertex="1" parent="legend">
+          <mxGeometry x="20" y="105" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-cicd-desc" value="Define Cloud Build trigger, Cloud Deploy pipeline,&#xa;build configuration, and deployment manifests" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="legend">
+          <mxGeometry x="20" y="130" width="320" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-config" value="Deployment Configs (Green)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#009900;fontStyle=1" vertex="1" parent="legend">
+          <mxGeometry x="20" y="170" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-config-desc" value="Cloud Run service configurations for staging&#xa;and production environments" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="legend">
+          <mxGeometry x="20" y="195" width="320" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-note" value="Note: This setup includes:&#xa;• Production Cloud Run (via Load Balancer)&#xa;• Staging Cloud Run (direct access)&#xa;• Cloud Armor WAF &amp; Rate Limiting&#xa;• VPC network with Serverless Connector&#xa;• Automated CI/CD with Cloud Deploy" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontStyle=2" vertex="1" parent="legend">
+          <mxGeometry x="20" y="235" width="320" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Key Features -->
+        <mxCell id="features" value="Key Features" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1200" y="380" width="360" height="320" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature1" value="✓ HTTPS Load Balancer with SSL" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="40" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature2" value="✓ Cloud Armor WAF Protection" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="65" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature3" value="✓ Rate Limiting (configurable)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="90" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature4" value="✓ VPC Network with Serverless Connector" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="115" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature5" value="✓ Auto-scaling Cloud Run (min/max instances)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="140" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature6" value="✓ Separate Staging &amp; Production environments" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="165" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature7" value="✓ Artifact Registry for Docker images" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="190" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature8" value="✓ Cloud Build CI/CD pipeline" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="215" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature9" value="✓ Cloud Deploy with manual approval" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="240" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="feature10" value="✓ Service Accounts with least privilege IAM" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="features">
+          <mxGeometry x="20" y="265" width="320" height="25" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
